@@ -13,7 +13,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_groq import ChatGroq
 
 load_dotenv()
-hf_token = st.getenv("HF_TOKEN")
+hf_token = st.secrets["HF_TOKEN"]
 DB_FAISS_PATH = "vectorstore/db_faiss"
 @st.cache_resource
 def get_vectorstore():
@@ -56,7 +56,7 @@ def get_chain(vectorstore):
     llm = ChatGroq(
         model_name="llama-3.1-8b-instant",
         temperature=0,
-        groq_api_key=st.getenv("GROQ_API_KEY")
+        groq_api_key = st.secrets["GROQ_API_KEY"]
     )
 
     retriever = vectorstore.as_retriever(
